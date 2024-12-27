@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anime Data Processor</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Anime Data Processor</h1>
+      <input type="file" id="jsonFile" accept=".json" />
+      <button id="processButton" disabled>Process JSON</button>
+    </div>
+
+    <div id="loadingIndicator">
+      <div id="loadingSpinner"></div>
+      <p>Processing...</p>
+    </div>
+
+    <div class="container"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.com/libraries/Chart.js"></script>
+
+    <script src="script.js" type="module"></script>
+  </body>
+</html>
