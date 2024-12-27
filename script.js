@@ -56,7 +56,7 @@ document
       processedData.push(animeData);
 
       // Add a delay of 0.5 seconds between API calls to respect the rate limit
-      await delay(300);
+      await delay(500);
     }
 
     // The data is now in processedData and can be used for further operations.
