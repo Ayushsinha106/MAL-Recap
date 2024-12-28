@@ -43,9 +43,9 @@ document
     document.getElementById("loadingIndicator").style.display = "block";
     document
       .getElementById("loadingIndicator")
-      .querySelector("p").textContent = `processiong Extimated time: ${
-      filteredList.length * 0.5
-    } seconds`;
+      .querySelector(
+        "p"
+      ).textContent = `processiong Estimated time: ${filteredList.length} seconds`;
     // Process the filtered anime list and fetch data from the API
     for (const anime of filteredList) {
       const fetchedData = await fetchAnimeData(anime.series_animedb_id);
@@ -56,7 +56,7 @@ document
       processedData.push(animeData);
 
       // Add a delay of 0.5 seconds between API calls to respect the rate limit
-      await delay(800);
+      await delay(700);
     }
 
     // The data is now in processedData and can be used for further operations.
@@ -123,7 +123,7 @@ document
         for (let j = 0; j < totalAnime; j++) {
           if (parseInt(processedData[j].fetchedData.members) < leastMembers) {
             leastMembers = parseInt(processedData[j].fetchedData.members);
-            leastPopularAnime = processedData[j].series_title;
+            leastPopularAnime = processedData[j].series_title.__cdata;
           }
         }
       }
@@ -573,36 +573,13 @@ function delay(ms) {
 function removeSimilarEntries(animeList) {
   const mergedList = [];
   const seen = new Set();
-
+  console.log(animeList);
   animeList.forEach((title) => {
+    console.log(title);
     // Generate a simplified version of the title for comparison
-    const simplifiedTitle = title
-      .toLowerCase()
-      .replace(/[^a-z0-9\s]/gi, "")
-      .trim();
+    const simplifiedTitle = title.__cdata;
 
-    // Check if the simplified title already exists in the 'seen' set
-    let isMerged = false;
-    for (let existing of mergedList) {
-      const existingSimplified = existing
-        .toLowerCase()
-        .replace(/[^a-z0-9\s]/gi, "")
-        .trim();
-      // Check for overlap in words
-      const commonWords = existingSimplified
-        .split(" ")
-        .filter((word) => simplifiedTitle.includes(word));
-      if (commonWords.length > 2) {
-        // If more than 2 words overlap, consider them similar
-        isMerged = true;
-        break;
-      }
-    }
-
-    // Add to the list if not already merged
-    if (!isMerged) {
-      mergedList.push(title);
-    }
+    mergedList.push(simplifiedTitle);
   });
 
   return mergedList;
